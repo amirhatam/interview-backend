@@ -6,7 +6,6 @@ const validate = (req, res, next) => {
     const errors = expressValidator.validationResult(req)
 
     if (!errors.isEmpty()) {
-        // TODO: send the information about the validation errors
         res.status(400).json(errors)
     } else {
         next()
