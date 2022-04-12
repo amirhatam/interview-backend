@@ -6,6 +6,7 @@ const validate = (req, res, next) => {
     const errors = expressValidator.validationResult(req)
 
     if (!errors.isEmpty()) {
+        console.log(errors);
         res.status(400).json(errors)
     } else {
         next()
@@ -30,4 +31,9 @@ const validationSignup = [
     validate
 ]
 
-module.exports = { validationSignup }
+const validationLogin = [
+    expressValidator.body('password').exists().isString(),
+    validate
+]
+
+module.exports = { validationSignup, validationLogin }
