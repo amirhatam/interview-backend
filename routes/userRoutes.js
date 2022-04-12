@@ -4,6 +4,7 @@ const {
     getUsers,
     getUserById,
     getUser,
+    updateInterview
 } = require("../controllers/userController")
 
 
@@ -13,6 +14,8 @@ router.get("/", getUsers)
 router.get("/:id", getUserById)
 
 router.get("/username/:username", getUser)
+
+router.patch("/:id/interviews", updateInterview)
 
 
 

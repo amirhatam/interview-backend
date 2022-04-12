@@ -56,4 +56,24 @@ const getUser = async (req, res) => {
     }
 }
 
-module.exports = { getUsers, getUserById, getUser }
+
+const updateInterview = async (req, res) => {
+    try {
+        const userId = req.params.id
+        const data = req.body
+
+
+        const userUpdate = await userModel.updateOne({ _id: userId }, data)
+        console.log("userupdate", userUpdate)
+        res.json({
+            message: "User was updated",
+            userUpdate
+        })
+    } catch (error) {
+        console.log("Error", error)
+        res.status(500).json({ message: "There was a problem :(" })
+    }
+}
+
+
+module.exports = { getUsers, getUserById, getUser, updateInterview }
