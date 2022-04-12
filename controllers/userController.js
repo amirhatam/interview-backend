@@ -60,11 +60,15 @@ const getUser = async (req, res) => {
 const updateInterview = async (req, res) => {
     try {
         const userId = req.params.id
+        const user = await userModel.findById(userId)
+        let result = user.interview
+
         const data = req.body
 
+        result.push(data.interview)
 
-        const userUpdate = await userModel.updateOne({ _id: userId }, data)
-        console.log("userupdate", userUpdate)
+        const userUpdate = await userModel.updateOne({ _id: userId }, { interview: result })
+
         res.json({
             message: "User was updated",
             userUpdate
