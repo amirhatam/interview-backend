@@ -1,5 +1,5 @@
 const userModel = require('../models/user')
-
+const bcryptjs = require("bcryptjs")
 
 
 
@@ -9,10 +9,11 @@ const signup = async (req, res) => {
             username,
             password,
         } = req.body
+        const passwordHashed = bcryptjs.hashSync(password)
 
         const user = await userModel.create({
             username,
-            password
+            password: passwordHashed
         })
 
         res.json({ message: "User was created !", id: user._id })
