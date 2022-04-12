@@ -1,5 +1,6 @@
 const userModel = require('../models/user')
 const bcryptjs = require("bcryptjs")
+const jwt = require("jsonwebtoken")
 
 
 const signup = async (req, res) => {
@@ -24,6 +25,7 @@ const signup = async (req, res) => {
 }
 
 const login = async (req, res) => {
+    const tokenExpire = "4h"
     try {
         const username = req.body.username
         const password = req.body.password
@@ -32,10 +34,23 @@ const login = async (req, res) => {
         const result = bcryptjs.compareSync(password, validUser.password)
 
         if (result) {
+            const token = jwt.sign(
+                {
+                    id: result._id
+                }, "secret",
+                {
+                    expiresIn: tokenExpire
+                })
+
+            console.log("token , tokenExpire", token, tokenExpire)
+
             res.status(200).json({
                 message: "User connected !", validUser,
-
+                token,
+                tokenExpire
             })
+        } else {
+            res.status(401).json({ message: "Login failed" })
         }
 
     } catch (error) {
