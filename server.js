@@ -4,6 +4,7 @@ const mongoose = require('mongoose')
 const router = express.Router()
 
 const authRoutes = require("./routes/authRoutes")
+const userRoutes = require("./routes/userRoutes")
 
 
 
@@ -27,6 +28,7 @@ app.use(express.json())
 
 app.use("/", router)
 app.use("/user", authRoutes)
+app.use("/users", userRoutes)
 
 
 if (process.env.NODE_ENV === 'production') {
