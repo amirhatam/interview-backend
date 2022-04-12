@@ -11,9 +11,10 @@ const signup = async (req, res) => {
             password,
         } = req.body
         const passwordHashed = bcryptjs.hashSync(password)
+        const usernameLowerCase = username.toLowerCase()
 
         const user = await userModel.create({
-            username,
+            username: usernameLowerCase,
             password: passwordHashed
         })
 
